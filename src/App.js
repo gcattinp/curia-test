@@ -1,21 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
 import { initCuriaFactoryContract } from './contracts/initContracts';
+import EscrowInteraction from './components/EscrowInteractions';
 
 function App() {
     const [escrows, setEscrows] = useState([]);
     const [curiaFactoryContract, setCuriaFactoryContract] = useState(null);
-    const [beneficiary, setBeneficiary] = useState(''); // State for beneficiary address input
-    const [arbiter, setArbiter] = useState(''); // State for arbiter address input
-    const [deadlineInHours, setDeadlineInHours] = useState(''); // State for deadline input
+    const [userAddress, setUserAddress] = useState('');
+    const [beneficiary, setBeneficiary] = useState('');
+    const [arbiter, setArbiter] = useState('');
+    const [deadlineInHours, setDeadlineInHours] = useState('');
 
     useEffect(() => {
         const init = async () => {
             const provider = new ethers.BrowserProvider(window.ethereum);
+            await provider.send("eth_requestAccounts", []);
             const signer = await provider.getSigner();
-            console.log("Account:", await signer.getAddress());
-            const curiaFactoryContract = initCuriaFactoryContract(signer);
+            const userAddress = await signer.getAddress();
+            setUserAddress(userAddress);
 
+            const curiaFactoryContract = initCuriaFactoryContract(signer);
             setCuriaFactoryContract(curiaFactoryContract);
 
             const escrows = await curiaFactoryContract.getAllEscrows();
@@ -29,8 +33,8 @@ function App() {
         const tx = await curiaFactoryContract.createEscrow(beneficiary, arbiter, deadlineInHours);
         await tx.wait();
 
-        const escrows = await curiaFactoryContract.getAllEscrows();
-        setEscrows(escrows);
+        const newEscrows = await curiaFactoryContract.getAllEscrows();
+        setEscrows(newEscrows);
     };
 
     return (
@@ -45,9 +49,10 @@ function App() {
 
             <div>
                 <h2>Existing Escrows</h2>
-                {escrows.map((escrow, index) => (
+                {escrows.map((escrowAddress, index) => (
                     <div key={index}>
-                        <p>Escrow Address: {escrow}</p>
+                        <p>Escrow Address: {escrowAddress}</p>
+                        <EscrowInteraction escrowAddress={escrowAddress} userAddress={userAddress} />
                     </div>
                 ))}
             </div>
