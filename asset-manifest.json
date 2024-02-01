@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/curia-test/static/css/main.68e81636.css",
+    "main.js": "/curia-test/static/js/main.997ad1fe.js",
+    "static/js/787.1a06ebdf.chunk.js": "/curia-test/static/js/787.1a06ebdf.chunk.js",
+    "index.html": "/curia-test/index.html",
+    "main.68e81636.css.map": "/curia-test/static/css/main.68e81636.css.map",
+    "main.997ad1fe.js.map": "/curia-test/static/js/main.997ad1fe.js.map",
+    "787.1a06ebdf.chunk.js.map": "/curia-test/static/js/787.1a06ebdf.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.68e81636.css",
+    "static/js/main.997ad1fe.js"
+  ]
+}
