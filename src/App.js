@@ -1,3 +1,4 @@
+import './App.css';
 import React, { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
 import { initCuriaFactoryContract } from './contracts/initContracts';
@@ -38,26 +39,28 @@ function App() {
     };
 
     return (
-        <div className="App">
-            <h1>Curia Escrow App</h1>
+      <div className="app">
+          <h1 className="title">Curia Escrow App</h1>
 
-            <input type="text" value={beneficiary} onChange={e => setBeneficiary(e.target.value)} placeholder="Beneficiary Address"/>
-            <input type="text" value={arbiter} onChange={e => setArbiter(e.target.value)} placeholder="Arbiter Address"/>
-            <input type="text" value={deadlineInHours} onChange={e => setDeadlineInHours(e.target.value)} placeholder="Deadline in Hours"/>
+          <div className="input-group">
+              <input type="text" value={beneficiary} onChange={e => setBeneficiary(e.target.value)} placeholder="Beneficiary Address" className="input"/>
+              <input type="text" value={arbiter} onChange={e => setArbiter(e.target.value)} placeholder="Arbiter Address" className="input"/>
+              <input type="text" value={deadlineInHours} onChange={e => setDeadlineInHours(e.target.value)} placeholder="Deadline in Hours" className="input"/>
+          </div>
 
-            <button onClick={createEscrow}>Create Escrow</button>
+          <button onClick={createEscrow} className="button">Create Escrow</button>
 
-            <div>
-                <h2>Existing Escrows</h2>
-                {escrows.map((escrowAddress, index) => (
-                    <div key={index}>
-                        <p>Escrow Address: {escrowAddress}</p>
-                        <EscrowInteraction escrowAddress={escrowAddress} userAddress={userAddress} />
-                    </div>
-                ))}
-            </div>
-        </div>
-    );
+          <div className="escrows">
+              <h2>Existing Escrows</h2>
+              {escrows.map((escrowAddress, index) => (
+                  <div key={index} className="escrow">
+                      <p>Escrow Address: {escrowAddress}</p>
+                      <EscrowInteraction escrowAddress={escrowAddress} userAddress={userAddress} />
+                  </div>
+              ))}
+          </div>
+      </div>
+  );
 }
 
 export default App;

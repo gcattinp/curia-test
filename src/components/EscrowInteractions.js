@@ -31,7 +31,7 @@ const EscrowInteraction = ({ escrowAddress, userAddress }) => {
       const userDeposit = await escrowContract.deposits(userAddress);
       const depositsDisabled = await escrowContract.depositsDisabled();
       const deadline = await escrowContract.escrowDeadline();
-      const deadlineBigInt = BigInt(deadline) * 1000n;  // Multiply by 1000n for milliseconds
+      const deadlineBigInt = BigInt(deadline) * 1000n;
 
       setArbiterAddress(arbiter);
       setDepositorAddress(depositor);
@@ -77,7 +77,7 @@ const EscrowInteraction = ({ escrowAddress, userAddress }) => {
   };
 
   return (
-    <div>
+    <div className="escrow-interaction">
 
       {userAddress === arbiterAddress && (
         <>
